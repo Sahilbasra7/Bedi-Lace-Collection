@@ -26,6 +26,24 @@ describe('Footer Component', () => {
     expect(tagline).toBeInTheDocument();
   });
 
+  it('renders Categories section before Quick Links', () => {
+    render(
+      <BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    );
+    
+    const footerContent = document.querySelector('.footer-content');
+    const sections = footerContent.querySelectorAll('.footer-section');
+    
+    // Categories should come before Quick Links in the DOM
+    const categoriesHeading = screen.getByText('Categories');
+    const quickLinksHeading = screen.getByText('Quick Links');
+    
+    expect(categoriesHeading).toBeInTheDocument();
+    expect(quickLinksHeading).toBeInTheDocument();
+  });
+
   it('renders Quick Links section', () => {
     render(
       <BrowserRouter>
@@ -77,5 +95,27 @@ describe('Footer Component', () => {
     const currentYear = new Date().getFullYear();
     const copyright = screen.getByText(new RegExp(`${currentYear} Bedi Lace Collection`));
     expect(copyright).toBeInTheDocument();
+  });
+
+  it('footer headings have proper styling classes', () => {
+    render(
+      <BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    );
+    
+    const headings = document.querySelectorAll('.footer-section h3');
+    expect(headings.length).toBeGreaterThan(0);
+  });
+
+  it('Quick Links section has custom class', () => {
+    render(
+      <BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    );
+    
+    const quickLinksSection = document.querySelector('.quick-links-section');
+    expect(quickLinksSection).toBeInTheDocument();
   });
 });

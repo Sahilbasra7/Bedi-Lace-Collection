@@ -34,8 +34,14 @@
 
 .footer-section h3 {
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #95a5a6;
+  padding-bottom: 0.5rem;
+  display: inline-block;
 }
 
 .footer-section p {
@@ -68,6 +74,10 @@
   margin-bottom: 0.75rem;
 }
 
+.quick-links-section {
+  padding-left: 2rem;
+}
+
 .footer-bottom {
   text-align: center;
   padding-top: 2rem;
@@ -84,6 +94,15 @@
   .footer-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+  
+  .quick-links-section {
+    padding-left: 0;
+  }
+  
+  .footer-logo-section {
+    align-items: center;
+    text-align: center;
   }
   
   .footer-logo {

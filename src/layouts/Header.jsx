@@ -1,11 +1,41 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../assets/bedi Lace Collection Logo.png';
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
     <header className="header">
       <div className="header-container">
+        {/* Mobile Hamburger Menu Button */}
+        <button className={`hamburger-button ${menuOpen ? 'active' : ''}`} onClick={toggleMenu} aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         {/* Left Side - Logo and Navigation */}
         <div className="header-left">
           <Link to="/" className="logo-section">
@@ -39,6 +69,49 @@ function Header() {
           </button>
         </div>
       </div>
+
+      {/* Mobile Slide Menu */}
+      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <button className="close-button" onClick={closeMenu} aria-label="Close Menu">
+            ×
+          </button>
+          <h2>Menu</h2>
+        </div>
+        <nav className="mobile-nav">
+          <Link to="/" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Home</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/category/laces" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Laces</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/category/fabrics" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Fabrics</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/category/buttons" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Buttons</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/category/stitching-materials" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Raw Material</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/about" className="mobile-nav-link" onClick={closeMenu}>
+            <span>About Us</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/contact" className="mobile-nav-link" onClick={closeMenu}>
+            <span>Contact</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+        </nav>
+      </div>
+
+      {/* Overlay */}
+      {menuOpen && <div className="menu-overlay" onClick={closeMenu}></div>}
     </header>
   );
 }

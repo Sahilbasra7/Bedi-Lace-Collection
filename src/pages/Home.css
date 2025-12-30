@@ -207,7 +207,47 @@
   }
 
   .categories-grid,
-  .products-grid,
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .category-image-placeholder {
+    height: 120px;
+  }
+  
+  .category-icon {
+    font-size: 2.5rem;
+  }
+  
+  .category-card h3 {
+    padding: 1rem 1rem 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .category-card p {
+    padding: 0 1rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .product-image-placeholder {
+    height: 120px;
+    font-size: 2.5rem;
+  }
+  
+  .product-info {
+    padding: 1rem;
+  }
+  
+  .product-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-info p {
+    font-size: 0.85rem;
+  }
+  
   .features-grid {
     grid-template-columns: 1fr;
   }

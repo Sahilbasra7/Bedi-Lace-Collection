@@ -14,8 +14,8 @@ describe('Application Integration Tests', () => {
   it('navigates to Fabrics category when clicking Fabrics link', () => {
     render(<App />);
     
-    const fabricsLink = screen.getByText('Fabrics');
-    expect(fabricsLink).toHaveAttribute('href', '/category/fabrics');
+    const fabricsLinks = screen.getAllByText('Fabrics');
+    expect(fabricsLinks[0]).toHaveAttribute('href', '/category/fabrics');
   });
 
   it('navigates to Buttons category when clicking Buttons link', () => {
@@ -28,8 +28,8 @@ describe('Application Integration Tests', () => {
   it('navigates to Raw Material category when clicking Raw Material link', () => {
     render(<App />);
     
-    const rawMaterialLink = screen.getByText('Raw Material');
-    expect(rawMaterialLink).toHaveAttribute('href', '/category/stitching-materials');
+    const rawMaterialLinks = screen.getAllByText('Raw Material');
+    expect(rawMaterialLinks[0]).toHaveAttribute('href', '/category/stitching-materials');
   });
 
   it('displays all footer sections correctly', () => {
