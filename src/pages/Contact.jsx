@@ -11,24 +11,123 @@ function Contact() {
     message: ''
   });
 
+  const [submitted, setSubmitted] = useState(false);
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    subject: false,
+    message: false
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const fieldOrder = ['name', 'email', 'phone', 'subject', 'message'];
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'name':
+        if (!value || value.trim() === '') return 'Enter Valid Name';
+        return '';
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value || value.trim() === '') return 'Enter Valid Email';
+        if (!emailRegex.test(value)) return 'Enter Valid Email';
+        return '';
+      case 'phone':
+        if (!value || value.trim() === '') return 'Enter Valid Number';
+        const phoneRegex = /^[0-9]{10}$/;
+        const cleanPhone = value.replace(/[-\s]/g, '');
+        if (!phoneRegex.test(cleanPhone)) {
+          return 'Enter Valid Number';
+        }
+        return '';
+      case 'subject':
+        if (!value || value.trim() === '') return 'Enter Valid Subject';
+        return '';
+      case 'message':
+        if (!value || value.trim() === '') return 'Enter Valid Message';
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const handleFocus = (fieldName) => {
+    const currentFieldIndex = fieldOrder.indexOf(fieldName);
+    const newTouched = { ...touched };
+    const newErrors = { ...errors };
+    
+    // Mark all previous fields as touched and validate them
+    for (let i = 0; i < currentFieldIndex; i++) {
+      const prevField = fieldOrder[i];
+      newTouched[prevField] = true;
+      
+      // Validate previous field
+      const error = validateField(prevField, formData[prevField]);
+      if (error) {
+        newErrors[prevField] = error;
+      }
+    }
+    
+    setTouched(newTouched);
+    setErrors(newErrors);
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
+    });
+
+    // Validate on change
+    const error = validateField(name, value);
+    setErrors({
+      ...errors,
+      [name]: error
+    });
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched({
+      ...touched,
+      [name]: true
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, this would send data to a backend
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
+    
+    // Mark all fields as touched to show errors
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      subject: true,
+      message: true
     });
+    
+    // Validate all fields
+    const newErrors = {};
+    Object.keys(formData).forEach(key => {
+      const error = validateField(key, formData[key]);
+      if (error) newErrors[key] = error;
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // Submit successful
+    setSubmitted(true);
+  };
+
+  const getFieldClassName = (fieldName) => {
+    const hasError = touched[fieldName] && errors[fieldName];
+    return `form-group ${hasError ? 'has-error' : ''}`;
   };
 
   return (
@@ -111,75 +210,108 @@ function Contact() {
               transition={{ duration: 0.6 }}
             >
               <h2>Send us a Message</h2>
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Name *</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Your Name"
-                  />
-                </div>
+              
+              {!submitted ? (
+                <form onSubmit={handleSubmit} className="contact-form">
+                  <div className="form-row">
+                    <div className={getFieldClassName('name')}>
+                      <label htmlFor="name">Name *</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('name')}
+                        onBlur={handleBlur}
+                        placeholder="Your Name"
+                      />
+                      {touched.name && errors.name && (
+                        <span className="error-message">{errors.name}</span>
+                      )}
+                    </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your.email@example.com"
-                  />
-                </div>
+                    <div className={getFieldClassName('email')}>
+                      <label htmlFor="email">Email *</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('email')}
+                        onBlur={handleBlur}
+                        placeholder="your.email@example.com"
+                      />
+                      {touched.email && errors.email && (
+                        <span className="error-message">{errors.email}</span>
+                      )}
+                    </div>
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91-XXXXX-XXXXX"
-                  />
-                </div>
+                  <div className="form-row">
+                    <div className={getFieldClassName('phone')}>
+                      <label htmlFor="phone">Phone *</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('phone')}
+                        onBlur={handleBlur}
+                        placeholder="+91-XXXXX-XXXXX"
+                      />
+                      {touched.phone && errors.phone && (
+                        <span className="error-message">{errors.phone}</span>
+                      )}
+                    </div>
 
-                <div className="form-group">
-                  <label htmlFor="subject">Subject *</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    placeholder="What is this regarding?"
-                  />
-                </div>
+                    <div className={getFieldClassName('subject')}>
+                      <label htmlFor="subject">Subject *</label>
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('subject')}
+                        onBlur={handleBlur}
+                        placeholder="What is this regarding?"
+                      />
+                      {touched.subject && errors.subject && (
+                        <span className="error-message">{errors.subject}</span>
+                      )}
+                    </div>
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="message">Message *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="6"
-                    placeholder="Tell us more about your inquiry..."
-                  ></textarea>
-                </div>
+                  <div className={getFieldClassName('message')}>
+                    <label htmlFor="message">Message *</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      onFocus={() => handleFocus('message')}
+                      onBlur={handleBlur}
+                      rows="6"
+                      placeholder="Tell us more about your inquiry..."
+                    ></textarea>
+                    {touched.message && errors.message && (
+                      <span className="error-message">{errors.message}</span>
+                    )}
+                  </div>
 
-                <button type="submit" className="submit-button">
-                  Send Message
-                </button>
-              </form>
+                  <button type="submit" className="submit-button">
+                    Send Message
+                  </button>
+                </form>
+              ) : (
+                <div className="success-message">
+                  <div className="success-icon">✓</div>
+                  <p>We will call you back shortly</p>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>
