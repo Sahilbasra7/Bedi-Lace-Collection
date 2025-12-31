@@ -8,9 +8,9 @@ export const categories = [
   },
   {
     id: 'fabrics',
-    name: 'Ladies Inline Fabrics',
+    name: 'Ladies Lining Fabrics',
     slug: 'fabrics',
-    description: 'Discover beautiful inline fabrics for all your fashion needs',
+    description: 'Discover beautiful lining fabrics for all your fashion needs',
     image: '/images/categories/fabrics.jpg'
   },
   {

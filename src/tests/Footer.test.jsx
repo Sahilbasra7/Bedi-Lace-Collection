@@ -66,7 +66,7 @@ describe('Footer Component', () => {
     
     expect(screen.getByText('Categories')).toBeInTheDocument();
     expect(screen.getByText('Laces')).toBeInTheDocument();
-    expect(screen.getByText('Ladies Inline Fabrics')).toBeInTheDocument();
+    expect(screen.getByText('Ladies Lining Fabrics')).toBeInTheDocument();
     expect(screen.getByText('Buttons')).toBeInTheDocument();
     expect(screen.getByText('Stitching Raw Materials')).toBeInTheDocument();
   });

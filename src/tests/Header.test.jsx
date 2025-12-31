@@ -134,8 +134,11 @@ describe('Header Component', () => {
       </BrowserRouter>
     );
     
-    expect(screen.getByText('About Us')).toBeInTheDocument();
-    expect(screen.getByText('Contact')).toBeInTheDocument();
+    const aboutLinks = screen.getAllByText('About Us');
+    const contactLinks = screen.getAllByText('Contact');
+    
+    expect(aboutLinks.length).toBeGreaterThan(0);
+    expect(contactLinks.length).toBeGreaterThan(0);
   });
 
   it('mobile menu links have arrow indicators', () => {

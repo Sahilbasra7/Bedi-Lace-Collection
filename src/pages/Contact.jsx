@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import './Contact.css';
 
@@ -124,6 +124,32 @@ function Contact() {
     // Submit successful
     setSubmitted(true);
   };
+
+  // Reset form after 4 seconds of successful submission
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        setTouched({
+          name: false,
+          email: false,
+          phone: false,
+          subject: false,
+          message: false
+        });
+        setErrors({});
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
 
   const getFieldClassName = (fieldName) => {
     const hasError = touched[fieldName] && errors[fieldName];
