@@ -183,4 +183,53 @@ describe('Header Component', () => {
     const mobileMenu = document.querySelector('.mobile-menu');
     expect(mobileMenu).not.toHaveClass('open');
   });
+
+  it('opens search bar when search button is clicked', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const searchButton = screen.getByLabelText('Search');
+    const searchContainer = document.querySelector('.search-container');
+    
+    expect(searchContainer).not.toHaveClass('active');
+    
+    fireEvent.click(searchButton);
+    expect(searchContainer).toHaveClass('active');
+  });
+
+  it('displays close button when search is open', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const searchButton = screen.getByLabelText('Search');
+    fireEvent.click(searchButton);
+    
+    const closeButton = screen.getByLabelText('Close search');
+    expect(closeButton).toBeInTheDocument();
+  });
+
+  it('closes search bar when close button is clicked', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const searchButton = screen.getByLabelText('Search');
+    fireEvent.click(searchButton);
+    
+    const searchContainer = document.querySelector('.search-container');
+    expect(searchContainer).toHaveClass('active');
+    
+    const closeButton = screen.getByLabelText('Close search');
+    fireEvent.click(closeButton);
+    
+    expect(searchContainer).not.toHaveClass('active');
+  });
 });
