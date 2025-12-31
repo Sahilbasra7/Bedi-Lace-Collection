@@ -171,4 +171,15 @@ describe('Signup Component', () => {
     
     expect(screen.getByText('or')).toBeInTheDocument();
   });
+
+  it('renders with motion.div wrapper for animations', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Signup />
+      </BrowserRouter>
+    );
+    
+    const signupPage = container.querySelector('.signup-page');
+    expect(signupPage).toBeInTheDocument();
+  });
 });

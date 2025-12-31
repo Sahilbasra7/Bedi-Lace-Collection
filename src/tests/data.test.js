@@ -29,4 +29,31 @@ describe('Data Functions', () => {
     const featured = getFeaturedProducts(3);
     expect(featured.length).toBe(3);
   });
+
+  it('should have exactly 16 products per category', () => {
+    const laceProducts = getProductsByCategory('laces');
+    const fabricProducts = getProductsByCategory('fabrics');
+    const buttonProducts = getProductsByCategory('buttons');
+    const stitchingProducts = getProductsByCategory('stitching-materials');
+    
+    expect(laceProducts.length).toBe(16);
+    expect(fabricProducts.length).toBe(16);
+    expect(buttonProducts.length).toBe(16);
+    expect(stitchingProducts.length).toBe(16);
+  });
+
+  it('should have total 64 products', () => {
+    expect(products.length).toBe(64);
+  });
+
+  it('all products should have required properties', () => {
+    products.forEach(product => {
+      expect(product).toHaveProperty('id');
+      expect(product).toHaveProperty('name');
+      expect(product).toHaveProperty('categoryId');
+      expect(product).toHaveProperty('description');
+      expect(product).toHaveProperty('images');
+      expect(product).toHaveProperty('specifications');
+    });
+  });
 });

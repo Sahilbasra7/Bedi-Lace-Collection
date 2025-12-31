@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './Signup.css';
 
 function Signup() {
@@ -28,13 +29,42 @@ function Signup() {
   };
 
   return (
-    <div className="signup-page">
+    <motion.div 
+      className="signup-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="signup-container">
-        <div className="signup-card">
-          <h1>Create Account</h1>
-          <p className="signup-subtitle">Join us to explore our collection</p>
+        <motion.div 
+          className="signup-card"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+        >
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.15, duration: 0.3 }}
+          >
+            Create Account
+          </motion.h1>
+          <motion.p 
+            className="signup-subtitle"
+            initial={{ y: -15, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+          >
+            Join us to explore our collection
+          </motion.p>
           
-          <form onSubmit={handleSubmit} className="signup-form">
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="signup-form"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.25, duration: 0.4 }}
+          >
             <div className="form-group">
               <label htmlFor="name">Full Name</label>
               <input
@@ -91,14 +121,19 @@ function Signup() {
               </svg>
               Sign up with Gmail
             </button>
-          </form>
+          </motion.form>
 
-          <div className="signup-footer">
+          <motion.div 
+            className="signup-footer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.3 }}
+          >
             <p>Already have an account? <Link to="/login" className="login-link">Login</Link></p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

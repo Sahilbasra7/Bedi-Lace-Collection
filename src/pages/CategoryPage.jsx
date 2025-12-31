@@ -28,7 +28,7 @@ function CategoryPage() {
       <div className="category-header">
         <Link to="/" className="back-link">← Back to Home</Link>
         <h1>{category.name}</h1>
-        <p className="category-description">{category.description}</p>
+        <p>{category.description}</p>
       </div>
 
       <div className="products-grid">

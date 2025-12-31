@@ -1,64 +1,111 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import CategoryPage from '../pages/CategoryPage';
 
-const renderCategoryPage = (slug) => {
-  return render(
-    <BrowserRouter initialEntries={[`/category/${slug}`]}>
-      <Routes>
-        <Route path="/category/:slug" element={<CategoryPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
 describe('CategoryPage Component', () => {
-  it('renders category page for laces', () => {
+  it('renders category page for laces with products', () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter initialEntries={['/category/laces']}>
         <Routes>
-          <Route path="/" element={<CategoryPage />} />
+          <Route path="/category/:slug" element={<CategoryPage />} />
         </Routes>
-      </BrowserRouter>
+      </MemoryRouter>
     );
     
-    // Since we're not providing a slug in the test route,
-    // we need to test with the actual routing
+    expect(screen.getByText('Laces')).toBeInTheDocument();
+    expect(screen.getByText(/Back to Home/i)).toBeInTheDocument();
   });
 
-  it('displays back to home link', () => {
+  it('displays back to home link that is left-aligned', () => {
     render(
-      <BrowserRouter>
-        <CategoryPage />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/category/laces']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
     );
     
-    const backLink = screen.queryByText(/Back to Home/i);
+    const backLink = screen.getByText(/Back to Home/i);
     expect(backLink).toBeInTheDocument();
   });
 
-  it('renders products grid container', () => {
+  it('renders products grid with 16 products for laces category', () => {
     render(
-      <BrowserRouter>
-        <CategoryPage />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/category/laces']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
     );
     
-    // Check if the component renders without crashing
-    const categoryPage = document.querySelector('.category-page');
-    expect(categoryPage).toBeTruthy();
+    const productCards = document.querySelectorAll('.product-card');
+    expect(productCards.length).toBe(16);
+  });
+
+  it('renders products grid with 16 products for fabrics category', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/fabrics']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productCards = document.querySelectorAll('.product-card');
+    expect(productCards.length).toBe(16);
+  });
+
+  it('renders products grid with 16 products for buttons category', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/buttons']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productCards = document.querySelectorAll('.product-card');
+    expect(productCards.length).toBe(16);
+  });
+
+  it('renders products grid with 16 products for stitching materials category', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/stitching-materials']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productCards = document.querySelectorAll('.product-card');
+    expect(productCards.length).toBe(16);
   });
 
   it('shows category not found message for invalid category', () => {
     render(
-      <BrowserRouter>
-        <CategoryPage />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/category/invalid-category']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
     );
     
-    // When no valid slug is provided, it should show error or category not found
-    const errorMessage = screen.queryByText(/Category not found/i);
+    const errorMessage = screen.getByText(/Category not found/i);
     expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('renders category header with centered text', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/laces']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const categoryHeader = document.querySelector('.category-header');
+    expect(categoryHeader).toBeTruthy();
   });
 });

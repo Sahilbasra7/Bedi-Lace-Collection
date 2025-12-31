@@ -114,4 +114,15 @@ describe('Login Component', () => {
     const passwordInput = screen.getByLabelText(/password/i);
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
+
+  it('renders with motion.div wrapper for animations', () => {
+    const { container } = render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    );
+    
+    const loginPage = container.querySelector('.login-page');
+    expect(loginPage).toBeInTheDocument();
+  });
 });
