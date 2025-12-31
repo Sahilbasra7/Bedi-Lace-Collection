@@ -232,4 +232,49 @@ describe('Header Component', () => {
     
     expect(searchContainer).not.toHaveClass('active');
   });
+
+  it('search input has id and name attributes', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const searchButton = screen.getByLabelText('Search');
+    fireEvent.click(searchButton);
+    
+    const searchInput = document.querySelector('.search-input');
+    expect(searchInput).toHaveAttribute('id', 'search');
+    expect(searchInput).toHaveAttribute('name', 'search');
+  });
+
+  it('closes search when clicking outside search area', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const searchButton = screen.getByLabelText('Search');
+    fireEvent.click(searchButton);
+    
+    const searchContainer = document.querySelector('.search-container');
+    expect(searchContainer).toHaveClass('active');
+    
+    // Click outside the search wrapper
+    fireEvent.mouseDown(document.body);
+    
+    expect(searchContainer).not.toHaveClass('active');
+  });
+
+  it('account button links to login page', () => {
+    render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    
+    const accountButton = screen.getByLabelText('Account');
+    expect(accountButton).toHaveAttribute('href', '/login');
+  });
 });

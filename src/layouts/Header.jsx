@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import logo from '../assets/bedi Lace Collection Logo.png';
@@ -11,6 +11,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const searchRef = useRef(null);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -104,6 +105,22 @@ function Header() {
     };
   }, [menuOpen]);
 
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchOpen && searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchOpen(false);
+        setSearchQuery('');
+        setSearchResults([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [searchOpen]);
+
   return (
     <header className="header">
       <div className="header-container">
@@ -134,56 +151,60 @@ function Header() {
         {/* Right Side - Search and Account */}
         <div className="header-right">
           {/* Search Bar */}
-          <div className={`search-container ${searchOpen ? 'active' : ''}`}>
-            <form onSubmit={handleSearchSubmit} className="search-form">
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search products & categories..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                autoFocus={searchOpen}
-              />
-              {searchOpen && (
-                <button 
-                  type="button" 
-                  className="search-close-button" 
-                  onClick={toggleSearch}
-                  aria-label="Close search"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-              )}
-              {searchResults.length > 0 && (
-                <div className="search-results">
-                  {searchResults.map(result => (
-                    <div
-                      key={result.id}
-                      className="search-result-item"
-                      onClick={() => handleResultClick(result)}
-                    >
-                      <div className="result-info">
-                        <span className="result-name">{result.name}</span>
-                        <span className="result-category">
-                          {result.type === 'category' ? 'Category' : result.categoryId}
-                        </span>
+          <div ref={searchRef} className="search-wrapper">
+            <div className={`search-container ${searchOpen ? 'active' : ''}`}>
+              <form onSubmit={handleSearchSubmit} className="search-form">
+                <input
+                  type="text"
+                  id="search"
+                  name="search"
+                  className="search-input"
+                  placeholder="Search products & categories..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  autoFocus={searchOpen}
+                />
+                {searchOpen && (
+                  <button 
+                    type="button" 
+                    className="search-close-button" 
+                    onClick={toggleSearch}
+                    aria-label="Close search"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                )}
+                {searchResults.length > 0 && (
+                  <div className="search-results">
+                    {searchResults.map(result => (
+                      <div
+                        key={result.id}
+                        className="search-result-item"
+                        onClick={() => handleResultClick(result)}
+                      >
+                        <div className="result-info">
+                          <span className="result-name">{result.name}</span>
+                          <span className="result-category">
+                            {result.type === 'category' ? 'Category' : result.categoryId}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </form>
-          </div>
+                    ))}
+                  </div>
+                )}
+              </form>
+            </div>
 
-          <button className="icon-button" onClick={toggleSearch} aria-label="Search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
-          </button>
+            <button className="icon-button" onClick={toggleSearch} aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </div>
           
           <Link to="/login" className="icon-button" aria-label="Account">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
