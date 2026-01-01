@@ -33,8 +33,8 @@ describe('Home Page Mobile Responsive Tests', () => {
       </BrowserRouter>
     );
     
-    const imagePlaceholders = document.querySelectorAll('.category-image-placeholder');
-    expect(imagePlaceholders.length).toBeGreaterThan(0);
+    const categoryImages = document.querySelectorAll('.category-image, .category-image-placeholder');
+    expect(categoryImages.length).toBeGreaterThan(0);
   });
 
   it('product cards have image placeholders', () => {

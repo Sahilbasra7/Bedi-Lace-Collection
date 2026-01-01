@@ -61,8 +61,15 @@ function Home() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Link to={`/category/${category.slug}`}>
-                  <div className="category-image-placeholder">
-                    <span className="category-icon">📦</span>
+                  <div className="category-image">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<span class="category-icon">📦</span>';
+                      }}
+                    />
                   </div>
                   <h3>{category.name}</h3>
                   <p>{category.description}</p>

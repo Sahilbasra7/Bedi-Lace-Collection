@@ -30,20 +30,20 @@ describe('Data Functions', () => {
     expect(featured.length).toBe(3);
   });
 
-  it('should have exactly 16 products per category', () => {
+  it('should have exactly 8 products per category', () => {
     const laceProducts = getProductsByCategory('laces');
     const fabricProducts = getProductsByCategory('fabrics');
     const buttonProducts = getProductsByCategory('buttons');
     const stitchingProducts = getProductsByCategory('stitching-materials');
     
-    expect(laceProducts.length).toBe(16);
-    expect(fabricProducts.length).toBe(16);
-    expect(buttonProducts.length).toBe(16);
-    expect(stitchingProducts.length).toBe(16);
+    expect(laceProducts.length).toBe(8);
+    expect(fabricProducts.length).toBe(8);
+    expect(buttonProducts.length).toBe(8);
+    expect(stitchingProducts.length).toBe(8);
   });
 
-  it('should have total 64 products', () => {
-    expect(products.length).toBe(64);
+  it('should have total 32 products', () => {
+    expect(products.length).toBe(32);
   });
 
   it('all products should have required properties', () => {

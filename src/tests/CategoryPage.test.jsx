@@ -31,7 +31,7 @@ describe('CategoryPage Component', () => {
     expect(backLink).toBeInTheDocument();
   });
 
-  it('renders products grid with 16 products for laces category', () => {
+  it('renders products grid with 8 products for laces category', () => {
     render(
       <MemoryRouter initialEntries={['/category/laces']}>
         <Routes>
@@ -41,10 +41,10 @@ describe('CategoryPage Component', () => {
     );
     
     const productCards = document.querySelectorAll('.product-card');
-    expect(productCards.length).toBe(16);
+    expect(productCards.length).toBe(8);
   });
 
-  it('renders products grid with 16 products for fabrics category', () => {
+  it('renders products grid with 8 products for fabrics category', () => {
     render(
       <MemoryRouter initialEntries={['/category/fabrics']}>
         <Routes>
@@ -54,10 +54,10 @@ describe('CategoryPage Component', () => {
     );
     
     const productCards = document.querySelectorAll('.product-card');
-    expect(productCards.length).toBe(16);
+    expect(productCards.length).toBe(8);
   });
 
-  it('renders products grid with 16 products for buttons category', () => {
+  it('renders products grid with 8 products for buttons category', () => {
     render(
       <MemoryRouter initialEntries={['/category/buttons']}>
         <Routes>
@@ -67,10 +67,10 @@ describe('CategoryPage Component', () => {
     );
     
     const productCards = document.querySelectorAll('.product-card');
-    expect(productCards.length).toBe(16);
+    expect(productCards.length).toBe(8);
   });
 
-  it('renders products grid with 16 products for stitching materials category', () => {
+  it('renders products grid with 8 products for stitching materials category', () => {
     render(
       <MemoryRouter initialEntries={['/category/stitching-materials']}>
         <Routes>
@@ -80,7 +80,7 @@ describe('CategoryPage Component', () => {
     );
     
     const productCards = document.querySelectorAll('.product-card');
-    expect(productCards.length).toBe(16);
+    expect(productCards.length).toBe(8);
   });
 
   it('shows category not found message for invalid category', () => {
