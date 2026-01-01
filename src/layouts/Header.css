@@ -251,6 +251,11 @@
   display: block;
 }
 
+/* Hide Account Button */
+.account-button {
+  display: none !important;
+}
+
 /* Hamburger Menu Button */
 .hamburger-button {
   display: none;

@@ -12,6 +12,7 @@ function Contact() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [touched, setTouched] = useState({
     name: false,
     email: false,
@@ -97,7 +98,7 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Mark all fields as touched to show errors
@@ -121,8 +122,38 @@ function Contact() {
       return;
     }
 
-    // Submit successful
-    setSubmitted(true);
+    // Submit to FormSubmit
+    setSubmitting(true);
+    
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/bedilacecollection@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          _subject: `New Enquiry: ${formData.subject}`,
+          message: formData.message
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.success || response.ok) {
+        setSubmitted(true);
+        setSubmitting(false);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Something went wrong. Please try again or contact us via WhatsApp.');
+      setSubmitting(false);
+    }
   };
 
   // Reset form after 4 seconds of successful submission
@@ -328,14 +359,15 @@ function Contact() {
                     )}
                   </div>
 
-                  <button type="submit" className="submit-button">
-                    Send Message
+                  <button type="submit" className="submit-button" disabled={submitting}>
+                    {submitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               ) : (
                 <div className="success-message">
                   <div className="success-icon">✓</div>
-                  <p>We will call you back shortly</p>
+                  <p>Thank you for contacting us!</p>
+                  <p>We will get back to you shortly.</p>
                 </div>
               )}
             </motion.div>

@@ -29,6 +29,17 @@ describe('Layout Component', () => {
     expect(logos[0]).toBeInTheDocument();
   });
 
+  it('renders whatsapp button', () => {
+    render(
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    );
+    
+    const whatsappButton = screen.getByRole('link', { name: /chat on whatsapp/i });
+    expect(whatsappButton).toBeInTheDocument();
+  });
+
   it('renders footer component', () => {
     render(
       <BrowserRouter>

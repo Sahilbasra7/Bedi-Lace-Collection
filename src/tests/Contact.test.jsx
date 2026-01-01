@@ -170,7 +170,7 @@ describe('Contact Component', () => {
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(/we will call you back shortly/i)).toBeInTheDocument();
+      expect(screen.getByText(/thank you for contacting us!/i)).toBeInTheDocument();
     });
   });
 
