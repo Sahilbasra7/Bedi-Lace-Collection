@@ -77,6 +77,23 @@
   line-height: 1.6;
 }
 
+.contact-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.contact-label {
+  font-weight: 700;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.contact-value {
+  flex: 1;
+  color: #ecf0f1;
+}
+
 .phone-link,
 .email-link {
   color: #ecf0f1;

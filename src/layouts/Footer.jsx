@@ -38,10 +38,22 @@ function Footer() {
           <div className="footer-section">
             <h3>Contact Info</h3>
             <ul className="contact-list">
-              <li>📍 Address: C1 Shop. - 6, Amar Colony, near Raghunath Mandir Lane, Main Market, Amar colony, Lajpat Nagar 4, New Delhi, Delhi 110024</li>
-              <li>📞 Phone: <a href="tel:+919899884227" className="phone-link">+91-9899884227</a></li>
-              <li>✉️ Email: <a href="mailto:bedilacecollection@gmail.com" className="email-link">bedilacecollection@gmail.com</a></li>
-              <li>🕐 Hours: Mon-Sun, 11 AM - 9.30 PM</li>
+              <li className="contact-item">
+                <span className="contact-label">📍 Address:</span>
+                <span className="contact-value">C1 Shop. - 6, Amar Colony, near Raghunath Mandir Lane, Main Market, Amar colony, Lajpat Nagar 4, New Delhi, Delhi 110024</span>
+              </li>
+              <li className="contact-item">
+                <span className="contact-label">📞 Phone:</span>
+                <a href="tel:+919899884227" className="phone-link contact-value">+91-9899884227</a>
+              </li>
+              <li className="contact-item">
+                <span className="contact-label">✉️ Email:</span>
+                <a href="mailto:bedilacecollection@gmail.com" className="email-link contact-value">bedilacecollection@gmail.com</a>
+              </li>
+              <li className="contact-item">
+                <span className="contact-label">🕐 Hours:</span>
+                <span className="contact-value">Mon-Sun, 11 AM - 9.30 PM</span>
+              </li>
             </ul>
           </div>
         </div>
