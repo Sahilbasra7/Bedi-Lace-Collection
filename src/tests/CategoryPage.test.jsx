@@ -108,4 +108,40 @@ describe('CategoryPage Component', () => {
     const categoryHeader = document.querySelector('.category-header');
     expect(categoryHeader).toBeTruthy();
   });
+
+  it('displays product images in category page', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/laces']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productImages = document.querySelectorAll('.product-image');
+    expect(productImages.length).toBe(8); // 8 products per category
+    
+    // Check that all images have src attribute
+    const images = document.querySelectorAll('.product-image img');
+    images.forEach(img => {
+      expect(img).toHaveAttribute('src');
+      expect(img).toHaveAttribute('alt');
+    });
+  });
+
+  it('product cards have proper structure with name and description', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/buttons']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productNames = document.querySelectorAll('.product-name');
+    const productDescriptions = document.querySelectorAll('.product-description');
+    
+    expect(productNames.length).toBe(8);
+    expect(productDescriptions.length).toBe(8);
+  });
 });

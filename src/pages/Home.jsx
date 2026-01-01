@@ -96,8 +96,15 @@ function Home() {
                 whileHover={{ y: -10 }}
               >
                 <Link to={`/product/${product.id}`}>
-                  <div className="product-image-placeholder">
-                    <span>🖼️</span>
+                  <div className="product-image">
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<span>🖼️</span>';
+                      }}
+                    />
                   </div>
                   <div className="product-info">
                     <h3>{product.name}</h3>

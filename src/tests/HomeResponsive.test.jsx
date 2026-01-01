@@ -44,8 +44,8 @@ describe('Home Page Mobile Responsive Tests', () => {
       </BrowserRouter>
     );
     
-    const imagePlaceholders = document.querySelectorAll('.product-image-placeholder');
-    expect(imagePlaceholders.length).toBeGreaterThan(0);
+    const productImages = document.querySelectorAll('.product-image, .product-image-placeholder');
+    expect(productImages.length).toBeGreaterThan(0);
   });
 
   it('features grid renders properly', () => {
