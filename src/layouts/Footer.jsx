@@ -52,7 +52,7 @@ function Footer() {
               </li>
               <li className="contact-item">
                 <span className="contact-label">🕐 Hours:</span>
-                <span className="contact-value">Mon-Sun, 11 AM - 9.30 PM</span>
+                <span className="contact-value">Mon-Sun, 11 AM - 9.30 PM<br />Shop is CLOSED on Every Tuesday</span>
               </li>
             </ul>
           </div>

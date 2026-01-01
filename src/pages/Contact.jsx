@@ -254,7 +254,7 @@ function Contact() {
                   <div className="info-icon">🕐</div>
                   <div className="info-details">
                     <h3>Business Hours</h3>
-                    <p>Mon-Sun<br />11 AM - 9.30 PM</p>
+                    <p>Mon-Sun<br />11 AM - 9.30 PM<br />Shop is CLOSED on Every Tuesday</p>
                   </div>
                 </div>
               </div>
