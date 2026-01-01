@@ -74,6 +74,24 @@
 .contact-list li {
   color: #ecf0f1;
   margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.phone-link,
+.email-link {
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.phone-link:hover,
+.email-link:hover {
+  color: #667eea;
+  text-decoration: underline;
+}
+
+.phone-link {
+  cursor: pointer;
 }
 
 .quick-links-section {

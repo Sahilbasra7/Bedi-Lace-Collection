@@ -76,7 +76,9 @@ describe('Application Integration Tests', () => {
   it('footer has contact information', () => {
     render(<App />);
     
-    expect(screen.getByText(/info@bedilace.com/i)).toBeInTheDocument();
-    expect(screen.getByText(/Mon-Sat, 10 AM - 7 PM/i)).toBeInTheDocument();
+    expect(screen.getByText(/bedilacecollection@gmail.com/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mon-Sun, 11 AM - 9.30 PM/i)).toBeInTheDocument();
+    expect(screen.getByText(/\+91-9899884227/)).toBeInTheDocument();
+    expect(screen.getByText(/Lajpat Nagar 4/i)).toBeInTheDocument();
   });
 });
