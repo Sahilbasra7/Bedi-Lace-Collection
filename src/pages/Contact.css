@@ -75,6 +75,17 @@
   line-height: 1.6;
 }
 
+.contact-link {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
 .contact-form {
   background: white;
   padding: 2rem;

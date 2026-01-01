@@ -230,7 +230,7 @@ function Contact() {
                   <div className="info-icon">📍</div>
                   <div className="info-details">
                     <h3>Address</h3>
-                    <p>[Your Business Address]<br />City, State - PIN Code</p>
+                    <p>C1 Shop. - 6, Amar Colony, near Raghunath Mandir Lane,<br />Main Market, Amar colony, Lajpat Nagar 4,<br />New Delhi, Delhi 110024</p>
                   </div>
                 </div>
 
@@ -238,7 +238,7 @@ function Contact() {
                   <div className="info-icon">📞</div>
                   <div className="info-details">
                     <h3>Phone</h3>
-                    <p>+91-XXXXX-XXXXX</p>
+                    <p><a href="tel:+919899884227" className="contact-link">+91-9899884227</a></p>
                   </div>
                 </div>
 
@@ -246,7 +246,7 @@ function Contact() {
                   <div className="info-icon">✉️</div>
                   <div className="info-details">
                     <h3>Email</h3>
-                    <p>info@bedilace.com</p>
+                    <p><a href="mailto:bedilacecollection@gmail.com" className="contact-link">bedilacecollection@gmail.com</a></p>
                   </div>
                 </div>
 
@@ -254,7 +254,7 @@ function Contact() {
                   <div className="info-icon">🕐</div>
                   <div className="info-details">
                     <h3>Business Hours</h3>
-                    <p>Monday - Saturday<br />10:00 AM - 7:00 PM</p>
+                    <p>Mon-Sun<br />11 AM - 9.30 PM</p>
                   </div>
                 </div>
               </div>
