@@ -1,22 +1,35 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getProductById } from '../data/products';
+import { categories } from '../data/categories';
 import './ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const product = getProductById(id);
 
   if (!product) {
     return (
-      <div className="container">
-        <div className="error-message">
-          <h2>Product not found</h2>
-          <Link to="/">Return to Home</Link>
+      <div className="product-detail-page">
+        <div className="container">
+          <div className="error-message">
+            <h2>Product not found</h2>
+            <Link to="/" className="back-link">← Return to Home</Link>
+          </div>
         </div>
       </div>
     );
   }
+
+  const category = categories.find(cat => cat.id === product.categoryId);
+  const categoryName = category ? category.name : product.categoryId;
+
+  const handleContactClick = () => {
+    const message = `Hi, I'm interested in ${product.name}`;
+    const whatsappUrl = `https://wa.me/919899884227?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <div className="product-detail-page">
@@ -28,8 +41,8 @@ function ProductDetail() {
         >
           <Link to="/">Home</Link>
           <span> / </span>
-          <Link to={`/category/${product.category}`}>
-            {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+          <Link to={`/category/${product.categoryId}`}>
+            {categoryName}
           </Link>
           <span> / </span>
           <span>{product.name}</span>
@@ -42,15 +55,28 @@ function ProductDetail() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="main-image-placeholder">
-              <span>🖼️</span>
-              <p>Product Image</p>
+            <div className="main-image">
+              <img 
+                src={product.images[0]} 
+                alt={product.name}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.innerHTML = '<div class="image-placeholder"><span>🖼️</span><p>Product Image</p></div>';
+                }}
+              />
             </div>
             {product.images && product.images.length > 1 && (
               <div className="thumbnail-gallery">
                 {product.images.map((img, index) => (
-                  <div key={index} className="thumbnail-placeholder">
-                    <span>📷</span>
+                  <div key={index} className="thumbnail">
+                    <img 
+                      src={img} 
+                      alt={`${product.name} ${index + 1}`}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<span>📷</span>';
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -72,7 +98,7 @@ function ProductDetail() {
                 <tbody>
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <tr key={key}>
-                      <td className="spec-label">{key}:</td>
+                      <td className="spec-label">{key.charAt(0).toUpperCase() + key.slice(1)}:</td>
                       <td className="spec-value">{value}</td>
                     </tr>
                   ))}
@@ -81,9 +107,11 @@ function ProductDetail() {
             </div>
 
             <div className="action-buttons">
-              <button className="contact-button">Contact for Inquiry</button>
-              <Link to={`/category/${product.category}`} className="back-button">
-                View More in Category
+              <button className="contact-button" onClick={handleContactClick}>
+                <span>💬</span> Contact for Inquiry
+              </button>
+              <Link to={`/category/${product.categoryId}`} className="back-button">
+                ← View More in Category
               </Link>
             </div>
           </motion.div>

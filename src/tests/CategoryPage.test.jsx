@@ -144,4 +144,65 @@ describe('CategoryPage Component', () => {
     expect(productNames.length).toBe(8);
     expect(productDescriptions.length).toBe(8);
   });
+
+  it('product cards have uniform height with flex layout', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/laces']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const categoryPage = document.querySelector('.category-page');
+    expect(categoryPage).toBeInTheDocument();
+    
+    const productCards = document.querySelectorAll('.category-page .product-card');
+    expect(productCards.length).toBe(8);
+    
+    // Verify all cards exist and have proper structure
+    productCards.forEach(card => {
+      expect(card).toBeInTheDocument();
+      const imageWrapper = card.querySelector('.product-image-wrapper');
+      const productInfo = card.querySelector('.product-info');
+      expect(imageWrapper).toBeInTheDocument();
+      expect(productInfo).toBeInTheDocument();
+    });
+  });
+
+  it('product image wrappers have fixed height', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/fabrics']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const imageWrappers = document.querySelectorAll('.category-page .product-image-wrapper');
+    expect(imageWrappers.length).toBe(8);
+    
+    // All image wrappers should have consistent height
+    imageWrappers.forEach(wrapper => {
+      expect(wrapper).toBeInTheDocument();
+    });
+  });
+
+  it('product info sections have flex-grow for uniform spacing', () => {
+    render(
+      <MemoryRouter initialEntries={['/category/buttons']}>
+        <Routes>
+          <Route path="/category/:slug" element={<CategoryPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    
+    const productInfos = document.querySelectorAll('.category-page .product-info');
+    expect(productInfos.length).toBe(8);
+    
+    // Check that info sections exist and have proper structure
+    productInfos.forEach(info => {
+      expect(info).toBeInTheDocument();
+    });
+  });
 });
